@@ -21,7 +21,7 @@ use commands::{gen_id, parse_command, ParseError};
 use connection::{ensure_daemon, send_command};
 use flags::{clean_args, parse_flags};
 use install::run_install;
-use output::{print_help, print_response};
+use output::{print_command_help, print_help, print_response};
 
 fn run_session(args: &[String], session: &str, json_mode: bool) {
     let subcommand = args.get(1).map(|s| s.as_str());
@@ -98,7 +98,19 @@ fn main() {
     let flags = parse_flags(&args);
     let clean = clean_args(&args);
 
-    if clean.is_empty() || args.iter().any(|a| a == "--help" || a == "-h") {
+    let has_help = args.iter().any(|a| a == "--help" || a == "-h");
+
+    if clean.is_empty() {
+        print_help();
+        return;
+    }
+
+    if has_help {
+        if let Some(cmd) = clean.get(0) {
+            if print_command_help(cmd) {
+                return;
+            }
+        }
         print_help();
         return;
     }
