@@ -1197,6 +1197,7 @@ Options:
   --headed                   Show browser window (not headless)
   --cdp <port>               Connect via CDP (Chrome DevTools Protocol)
   --debug                    Debug output
+  --version                  Show version
 
 Environment:
   AGENT_BROWSER_SESSION          Session name (default: "default")

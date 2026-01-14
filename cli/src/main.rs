@@ -98,7 +98,13 @@ fn main() {
     let flags = parse_flags(&args);
     let clean = clean_args(&args);
 
+    let has_version = args.iter().any(|a| a == "--version");
     let has_help = args.iter().any(|a| a == "--help" || a == "-h");
+
+    if has_version {
+        println!("agent-browser {}", env!("CARGO_PKG_VERSION"));
+        return;
+    }
 
     if clean.is_empty() {
         print_help();
