@@ -79,7 +79,7 @@ pub fn clean_args(args: &[String]) -> Vec<String> {
     let mut skip_next = false;
 
     // Global flags that should be stripped from command args
-    const GLOBAL_FLAGS: &[&str] = &["--json", "--full", "--headed", "--debug"];
+    const GLOBAL_FLAGS: &[&str] = &["--json", "--full", "--headed", "--debug", "--version"];
     // Global flags that take a value (need to skip the next arg too)
     const GLOBAL_FLAGS_WITH_VALUE: &[&str] = &["--session", "--headers", "--executable-path", "--cdp", "--extension"];
 
@@ -93,7 +93,7 @@ pub fn clean_args(args: &[String]) -> Vec<String> {
             continue;
         }
         // Only strip known global flags, not command-specific flags
-        if GLOBAL_FLAGS.contains(&arg.as_str()) || arg == "-f" {
+        if GLOBAL_FLAGS.contains(&arg.as_str()) || arg == "-f" || arg == "-V" {
             continue;
         }
         result.push(arg.clone());
